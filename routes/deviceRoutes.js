@@ -1,8 +1,10 @@
 const express = require('express');
-const { createDevice, getDevices, deleteDevice } = require('../controllers/deviceController');
+const deviceController = require('../controllers/deviceController');
 const router = express.Router();
 
-router.post('/', createDevice); // Ajouter un capteur
-router.get('/', getDevices);    // Lister les capteurs
-router.delete('/:id', deleteDevice); // Supprimer un capteur
+router.post('/', deviceController.createDevice); // Ajouter un capteur
+router.get('/', deviceController.getDevices);    // Lister les capteurs
+router.delete('/:id', deviceController.deleteDevice); // Supprimer un capteur
+router.patch("/:id", deviceController.updateAvailability);
+
 module.exports = router;
