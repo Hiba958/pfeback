@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes'); // Importe correctement les routes d'authentification
 const userRoutes = require("./routes/userRoutes"); // Import des routes
 const reservationRoutes = require('./routes/reservationRoutes');
+const deviceRoutes = require('./routes/deviceRoutes');
 const app = express(); // Déclaration de 'app'
 const PORT = 5001; // Assure-toi que c'est le même port que dans ton fetch()
 app.use(cors()); // Maintenant on peut utiliser cors()
@@ -19,11 +20,11 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('✅ Connecté à MongoDB'))
 .catch((error) => console.error('Erreur de connexion MongoDB:', error));
 
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/devices', deviceRoutes);
 app.use('/api/reservations', reservationRoutes);
 
-app.use('/api/devices', require('./routes/deviceRoutes'));
-app.use('/api/auth', authRoutes);
-app.use("/api/users", userRoutes);
 app.get('/', (req, res) => {
     res.send('pfe back is running !');
 });
