@@ -5,6 +5,5 @@ const router = express.Router();
 router.post('/', deviceController.createDevice); // Ajouter un capteur
 router.get('/', deviceController.getDevices);    // Lister les capteurs
 router.delete('/:id', deviceController.deleteDevice); // Supprimer un capteur
-router.patch("/:id", deviceController.updateAvailability);
 
 module.exports = router;
