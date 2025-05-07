@@ -2,16 +2,22 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authMiddleware');
 const {
-  createReservation,
-  getReservations,
-  updateReservationStatus,
-  getUserReservations
+    createReservation,
+    getUserReservations,
+    updateReservationStatus,
+    getAllReservations
 } = require('../controllers/reservationController');
 
-// USER crée une demande
+// Get all reservations
+router.get('/', auth, getAllReservations);
+
+// Create a new reservation
 router.post('/', auth, createReservation);
-router.get('/reservations', getReservations); // Récupère toutes les réservations
-router.put('/reservations/:id', updateReservationStatus); // Accepter ou refuser une réservation
-router.get('/user/:userId/reservations', getUserReservations); // Récupère les réservations d'un utilisateur
+
+// Get user's reservations
+router.get('/user/:userId', auth, getUserReservations);
+
+// Update reservation status
+router.put('/:id', auth, updateReservationStatus);
 
 module.exports = router;
