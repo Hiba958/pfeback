@@ -3,8 +3,8 @@ const Device = require('../models/Device');
 // Ajouter un nouvel objet connecté
 const createDevice = async (req, res) => {
     try {
-        const { name, reference ,  availability} = req.body;
-        const newDevice = new Device({ name, reference, availability });
+        const { name, reference } = req.body;
+        const newDevice = new Device({ name, reference });
         await newDevice.save();
         res.status(201).json(newDevice);
     } catch (error) {
@@ -32,25 +32,8 @@ const deleteDevice = async (req, res) => {
     }
 };
 
-
-// Fonction pour mettre à jour la disponibilité d’un device
-const updateAvailability = (req, res) => {
-    const deviceId = req.params.id;
-    const availability = req.body.availability;
-
-    Device.findByIdAndUpdate(deviceId, { availability: availability }, { new: true })
-        .then(updatedDevice => {
-            res.json(updatedDevice);
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ message: "Erreur lors de la mise à jour de la disponibilité", error });
-        });
-};
-
 module.exports = {
     createDevice,
     getDevices,
-    deleteDevice,
-    updateAvailability
+    deleteDevice
 };
